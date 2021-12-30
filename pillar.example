@@ -1,0 +1,14 @@
+tool:
+  users:
+    user:
+      xdg: true                         # force xdg dirs on macos
+      dotconfig: true                   # sync config files from dotfiles repo (files in Packages/User)
+      subl:
+        plugins:
+          - Emmet
+          - SublimeLinter
+  subl:
+    users:
+      user:                             # user configuration can also be setup in tool:pipx:users
+        plugins:
+          - SublimeLinter-contrib-salt-lint
