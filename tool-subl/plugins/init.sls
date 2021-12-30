@@ -1,4 +1,4 @@
-{%- from 'tool-sublime-text/map.jinja' import subl -%}
+{%- from 'tool-subl/map.jinja' import subl -%}
 
 # @TODO install dependencies for plugins as well
 # need to figure out which python and path sublime uses

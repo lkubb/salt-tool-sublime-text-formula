@@ -1,4 +1,4 @@
-{%- from 'tool-sublime-text/map.jinja' import subl -%}
+{%- from 'tool-subl/map.jinja' import subl -%}
 
 include:
   - .package

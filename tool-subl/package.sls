@@ -1,4 +1,4 @@
-{%- from 'tool-sublime-text/map.jinja' import subl -%}
+{%- from 'tool-subl/map.jinja' import subl -%}
 
 # @TODO this is only implemented for MacOS, for Linux, see
 # https://www.sublimetext.com/docs/linux_repositories.html
@@ -11,7 +11,7 @@ Package Control is also installed for user {{ user.name }} (to make Sublime whol
   file.managed:
     - name: {{ user._subl.default_path }}/Installed Packages/Package Control.sublime-package
     - source:
-      - salt://tool-sublime-text/files/Package Control.sublime-package
+      - salt://tool-subl/files/Package Control.sublime-package
       - https://packagecontrol.io/Package%20Control.sublime-package
     - source_hash: 817937144c34c84c88cd43b85318b2656f9c3fac02f8f72cbc18360b2c26d139 # was at the time of writing, might change
     - makedirs: True
