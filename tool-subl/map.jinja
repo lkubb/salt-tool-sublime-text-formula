@@ -50,3 +50,10 @@ state: {{ salt['cmd.run']('[ -n "$XDG_STATE_HOME" ] && echo "${XDG_STATE_HOME}" 
 {%- endfor -%}
 
 {%- do subl.update({'users': users.values() | list}) -%}
+
+{%- set package = salt['grains.filter_by']({
+  'MacOS': 'homebrew/cask/sublime-text',
+  'default': 'sublime-text'
+  }, 'os_family') %}
+
+{%- do subl.update({'package': package}) %}

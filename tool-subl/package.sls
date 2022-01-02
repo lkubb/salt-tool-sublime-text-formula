@@ -1,10 +1,17 @@
 {%- from 'tool-subl/map.jinja' import subl -%}
 
-# @TODO this is only implemented for MacOS, for Linux, see
-# https://www.sublimetext.com/docs/linux_repositories.html
+{%- if 'Linux' == grains['kernel'] %}
+include:
+  - .repo
+{%- endif %}
+
 Sublime Text is installed:
   pkg.installed:
-    - name: homebrew/cask/sublime-text
+    - name: {{ subl.package }}
+{%- if 'Linux' == grains['kernel'] %}
+    - require:
+      - sls: .repo
+{%- endif %}
 
 {%- for user in subl.users %}
 Package Control is also installed for user {{ user.name }} (to make Sublime whole again):
