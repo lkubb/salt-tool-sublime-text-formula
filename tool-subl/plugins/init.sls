@@ -13,7 +13,7 @@
 # default_flow_style: True and default_style: '"' (and canonical: False) (which might produce valid json).
 # But it does not merge lists. Therefore, I had to write my own wrappers using json5 lib. Yay.
 
-{%- for user in subl.users %}
+{%- for user in subl.users | selectattr('subl.plugins', 'defined') %}
   {%- for plugin in user.subl.plugins %}
 Sublime Package Control makes sure {{ plugin }} is installed for user {{ user.name }}:
   subl.pkg_installed:

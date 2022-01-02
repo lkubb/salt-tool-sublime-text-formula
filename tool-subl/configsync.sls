@@ -1,6 +1,6 @@
 {%- from 'tool-subl/map.jinja' import subl %}
 
-{%- for user in subl.users | selectattr('dotconfig') %}
+{%- for user in subl.users | selectattr('dotconfig', 'defined') | selectattr('dotconfig') %}
 Sublime Text configuration is synced for user '{{ user.name }}':
   file.recurse:
     - name: {{ user._subl.confdir }}
