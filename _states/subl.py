@@ -44,8 +44,10 @@ def pkg_installed(name, user):
     try:
         if __salt__["subl.is_package_installed"](name, user):
             ret["comment"] = "Package is already installed."
-            return ret
-        if __salt__["subl.install_package"](name, user):
+        elif __opts__["test"]:
+            ret["comment"] = "Package {} would have been installed by Package Control once user '{}' started Sublime Text.".format(name, user)
+            ret["changes"] = {'installed': name}
+        elif __salt__["subl.install_package"](name, user):
             ret["comment"] = "Package {} will be installed by Package Control once user '{}' starts Sublime Text.".format(name, user)
             ret["changes"] = {'installed': name}
         else:
@@ -80,7 +82,10 @@ def pkg_absent(name, user):
     try:
         if not __salt__["subl.is_package_installed"](name, user):
             ret["comment"] = "Package is already absent."
-            return ret
+        elif __opts__["test"]:
+            ret["result"] = None
+            ret["comment"] = "Package {} would have been removed by Package Control once user '{}' started Sublime Text.".format(name, user)
+            ret["changes"] = {'removed': name}
         if __salt__["subl.remove_package"](name, user):
             ret["comment"] = "Package {} will be removed by Package Control once user '{}' starts Sublime Text.".format(name, user)
             ret["changes"] = {'removed': name}
