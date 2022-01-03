@@ -20,10 +20,11 @@
   'Darwin': '/Library/Application Support/Sublime Text',
   'Linux': '/.config/sublime-text',
   'Windows': '\AppData\Roaming\Sublime Text'
-  }) -%}
+  }, 'kernel') -%}
 
 {#- embed user information that will be reused (home, primary group, shell, paths) -#}
 {%- for user in users.keys() -%}
+  {%- do users[user].update({'_subl': {}}) -%}
   {%- do users[user].update({'name': user}) -%}
   {%- set user_info = salt['user.info'](user) -%}
   {%- load_yaml as user_info -%}
@@ -32,10 +33,10 @@ home: {{ user_info.home }}
 shell: {{ user_info.shell.split('/')[-1] }}
   {%- endload -%}
   {%- do users[user].update(salt['defaults.merge'](user_info, users[user], in_place=False)) -%}
-  {%- do users[user].update({'_subl': {'default_path': user_info.home ~ default_confdir}}) -%}
+  {%- do users[user]._subl.update({'default_path': user_info.home ~ default_confdir}) -%}
 
   {#- on MacOS, move the actual config to XDG_CONFIG_HOME and symlink it. on Linux, ST puts everything except cache into XDG_CONFIG_HOME -#}
-  {%- if users[user].xdg | default('True') && 'Darwin' == grains['kernel'] -%}
+  {%- if users[user].xdg | default('True') and 'Darwin' == grains['kernel'] -%}
     {#- cannot use environ.get because it only has access to current env, not a specific user's -#}
     {%- load_yaml as xdg -%}
 cache: {{ salt['cmd.run']('[ -n "$XDG_CACHE_HOME" ] && echo "${XDG_CACHE_HOME}" || echo "${HOME}/.cache"', runas=user) }}
@@ -43,9 +44,10 @@ config: {{ salt['cmd.run']('[ -n "$XDG_CONFIG_HOME" ] && echo "${XDG_CONFIG_HOME
 data: {{ salt['cmd.run']('[ -n "$XDG_DATA_HOME" ] && echo "${XDG_DATA_HOME}" || echo "${HOME}/.local/share"', runas=user) }}
 state: {{ salt['cmd.run']('[ -n "$XDG_STATE_HOME" ] && echo "${XDG_STATE_HOME}" || echo "${HOME}/.local/state"', runas=user) }}
     {%- endload -%}
-    {%- do users[user].update({'xdg': xdg, '_subl': {'confdir': xdg.config ~ '/sublime-text'}}) -%}
+    {%- do users[user].update({'xdg': xdg}) -%}
+    {%- do users[user]._subl.update({'confdir': xdg.config ~ '/sublime-text'}) -%}
   {%- else -%}
-    {%- do users[user].update({'_subl': {'confdir': user_info.home ~ default_confdir ~ '/Packages/User'}}) -%}
+    {%- do users[user]._subl.update({'confdir': user_info.home ~ default_confdir ~ '/Packages/User'}) -%}
   {%- endif -%}
 {%- endfor -%}
 
