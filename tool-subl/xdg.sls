@@ -11,7 +11,7 @@ Sublime Text's user directory is moved to XDG_CONFIG_HOME for user '{{ user.name
     - source: {{ user._subl.default_path }}/Packages/User
     - makedirs: True
     - require:
-      - sls: .package
+      - sls: {{ slspath }}.package {# salt does not support relative requires of sls files #}
     - unless:
       - test -L '{{ user._subl.default_path }}/Packages/User'
 
@@ -33,7 +33,7 @@ Git ignores unnecessary files in Sublime Text's XDG_CONFIG_HOME for user {{ user
     - user: {{ user.name }}
     - group: {{ user.group }}
     - require:
-      - sls: .package
+      - sls: {{ slspath }}.package
 
 Sublime Text uses XDG_CONFIG_HOME via symlink for user {{ user.name }}:
   file.symlink:
@@ -42,6 +42,6 @@ Sublime Text uses XDG_CONFIG_HOME via symlink for user {{ user.name }}:
     - makedirs: True
     - force: True # if XDG_CONFIG_HOME/sublime-text exists, it will not be overwritten, but the default User dir will be
     - require:
-      - sls: .package
+      - sls: {{ slspath }}.package
   {%- endfor %}
 {%- endif %}
