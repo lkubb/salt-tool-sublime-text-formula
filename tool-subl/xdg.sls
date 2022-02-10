@@ -41,6 +41,8 @@ Sublime Text uses XDG_CONFIG_HOME via symlink for user {{ user.name }}:
   file.symlink:
     - name: {{ user._subl.default_path }}/Packages/User
     - target: {{ user._subl.confdir }}
+    - user: {{ user.name }}
+    - group: {{ user.group }}
     - makedirs: True
     - force: True # if XDG_CONFIG_HOME/sublime-text exists, it will not be overwritten, but the default User dir will be
     - require:
