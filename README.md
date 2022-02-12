@@ -44,18 +44,31 @@ tool:
 #### User-specific
 The following shows an example of `tool-subl` pillar configuration. Namespace it to `tool:users` and/or `tool:subl:users`.
 ```yaml
-users:
-  user:
-    xdg: true                         # force xdg dirs on macos
-    dotconfig: true                   # sync config files from dotfiles repo (files in Packages/User)
-    subl:
-      plugins:
-        - Emmet
-        - SublimeLinter
+user:
+  xdg: true               # force xdg dirs on macos
+  # sync this user's config (files in Packages/User)
+  # from a dotfiles repo available as
+  # salt://dotconfig/<user>/sublime-text or salt://dotconfig/sublime-text
+  dotconfig:              # can be bool or mapping
+    file_mode: '0600'     # default: keep destination or salt umask (new)
+    dir_mode: '0700'      # default: 0700
+    clean: false          # delete files in target. default: false
+  subl:
+    plugins:              # those will be merged with defaults
+      - GitGutter
+      - SublimeLinter
+      - SublimeLinter-contrib-salt-lint
 ```
 
 #### Formula-specific
-There are none currently.
+```yaml
+tool:
+  subl:
+    defaults:
+      plugins:            # default plugins for all users
+        - Jinja2
+        - SaltStack-related syntax highlighting and snippets
+```
 
 ### Dotfiles
 `tool-subl.configsync` will recursively apply templates from 
