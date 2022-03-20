@@ -10,7 +10,7 @@ Sublime Text configuration is synced for user '{{ user.name }}':
       - salt://dotconfig/{{ user.name }}/sublime-text
       - salt://dotconfig/sublime-text
     - context:
-        user: {{ user }}
+        user: {{ user | json }}
     - template: jinja
     - user: {{ user.name }}
     - group: {{ user.group }}
