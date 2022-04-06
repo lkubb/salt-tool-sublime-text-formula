@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Set values specific to:
+#   salt['config.get']('os_family') == RedHat.
+#
+# You just need to add the key:values for this `os_family` that differ
+# from `defaults.yaml` + `<osarch>.yaml`.
+#
+# If you do not need to provide defaults via the `os_family` config,
+# you can remove this file or provide at least an empty dict, e.g.
+# values: {}
+---
+values:
+  lookup:
+    pkg:
+      manager: yum
+      repos:
+        stable:
+          humanname: sublime-text
+          name: Sublime Text - x86_64 - Stable
+          baseurl: https://download.sublimetext.com/rpm/stable/x86_64
+          key_url: https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+          gpgcheck: 1
+...

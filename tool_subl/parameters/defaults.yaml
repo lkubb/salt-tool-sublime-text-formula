@@ -1,0 +1,21 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Set default values.
+---
+values:
+  lookup:
+    pkg:
+      name: sublime-text
+      enable_repo:
+        - stable
+    paths:
+      confdir: '.config/sublime-text'
+      conffile: 'Packages/User'
+      xdg_dirname: 'sublime-text'
+      xdg_conffile: ''
+    rootgroup: root
+  # Just here for testing
+  added_in_defaults: defaults_value
+  winner: defaults
+...
