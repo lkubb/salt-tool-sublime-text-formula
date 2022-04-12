@@ -5,6 +5,7 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as subl with context %}
 
+
 {%- if grains['os'] in ['Debian', 'Ubuntu'] %}
 
 Ensure Sublime Text APT repository can be managed:
@@ -26,9 +27,9 @@ Sublime Text RPM repository does not exist for this CPU architecture:
 
 {%-   for reponame in subl.lookup.pkg.enablerepo %}
 
-Sublime Text {{ repo }} repository is available:
+Sublime Text {{ reponame }} repository is available:
   pkgrepo.managed:
-{%-     for conf, val in subl.lookup.pkg.repo[reponame].items() %}
+{%-     for conf, val in subl.lookup.pkg.repos[reponame].items() %}
     - {{ conf }}: {{ val }}
 {%-     endfor %}
 {%-     if subl.lookup.pkg.manager in ['dnf', 'yum', 'zypper'] %}

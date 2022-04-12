@@ -8,6 +8,8 @@
 
 include:
   - {{ sls_config_clean }}
+  - {{ slsdotpath }}.repo.clean
+
 
 Sublime Text is removed:
   pkg.removed:

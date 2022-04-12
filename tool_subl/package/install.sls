@@ -9,6 +9,7 @@
 include:
   - {{ slsdotpath }}.repo
 
+
 Sublime Text is installed:
   pkg.installed:
     - name: {{ subl.lookup.pkg.name }}

@@ -13,7 +13,7 @@ include:
     ST puts everything except cache into XDG_CONFIG_HOME #}
 
 {%- if 'Darwin' == grains['kernel'] %}
-{%-   for user in subl.users | rejectattr('xdg', 'sameas', False) %}
+{%-   for user in subl.users | rejectattr('xdg', 'sameas', false) %}
 
 {%-     set user_default_conf = user.home | path_join(subl.lookup.paths.confdir, subl.lookup.paths.conffile) %}
 {%-     set user_xdg_confdir = user.xdg.config | path_join(subl.lookup.paths.xdg_dirname) %}
@@ -40,7 +40,7 @@ Existing Sublime Text configuration is migrated for user '{{ user.name }}':
     - unless:
       - test -L '{{ user_default_conf }}'
     - require:
-      - XDG_CONFIG_HOME exists for user '{{ user.name }}'
+      - XDG_CONFIG_HOME exists for Sublime Text for user '{{ user.name }}'
     - require_in:
       - Sublime Text setup is completed
 

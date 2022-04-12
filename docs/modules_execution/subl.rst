@@ -1,7 +1,7 @@
 .. _em_subl:
 
-subl execution module
-=====================
+``subl`` execution module
+=========================
 
 .. automodule:: _modules.subl
    :members:

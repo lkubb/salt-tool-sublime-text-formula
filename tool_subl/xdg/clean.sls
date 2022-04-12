@@ -7,7 +7,7 @@
 
 
 {%- if 'Darwin' == grains['kernel'] %}
-{%-   for user in subl.users | rejectattr('xdg', 'sameas', False) %}
+{%-   for user in subl.users | rejectattr('xdg', 'sameas', false) %}
 
 {%-     set user_default_conf = user.home | path_join(subl.lookup.paths.confdir, subl.lookup.paths.conffile) %}
 {%-     set user_xdg_confdir = user.xdg.config | path_join(subl.lookup.paths.xdg_dirname) %}
