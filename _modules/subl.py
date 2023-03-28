@@ -16,9 +16,15 @@ import logging
 import os.path
 import shutil
 
-import json5
 import salt.exceptions
 import salt.utils.platform
+
+try:
+    import json5
+
+    HAS_JSON5 = True
+except ImportError:
+    HAS_JSON5 = False
 
 log = logging.getLogger(__name__)
 
@@ -29,13 +35,15 @@ def __virtual__():
     """
     Works on Linux, MacOS and Windows (should, at least)
     """
-    if (
+    if not (
         salt.utils.platform.is_darwin()
         or salt.utils.platform.is_linux()
         or salt.utils.platform.is_windows()
     ):
-        return __virtualname__
-    return False
+        return False, "Only available on MacOS, Linux and Windows"
+    if not HAS_JSON5:
+        return False, "json5 Python library is required"
+    return __virtualname__
 
 
 def is_package_installed(name, user):
