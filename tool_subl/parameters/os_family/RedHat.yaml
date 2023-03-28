@@ -20,6 +20,6 @@ values:
           humanname: sublime-text
           name: Sublime Text - x86_64 - Stable
           baseurl: https://download.sublimetext.com/rpm/stable/x86_64
-          key_url: https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+          gpgkey: https://download.sublimetext.com/sublimehq-rpm-pub.gpg
           gpgcheck: 1
 ...

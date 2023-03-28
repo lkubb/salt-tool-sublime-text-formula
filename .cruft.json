@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/lkubb/salt-tool-template-formula",
-  "commit": "8eb784d74343e8fe8ef8a6c66dc50e5f0456981f",
+  "commit": "4f70fccaf0c7de83bf646d329e936011fb7c1600",
   "checkout": null,
   "skip": [
     "_modules",
@@ -41,20 +41,10 @@
       "has_completions": "n",
       "has_tests": "y",
       "git_username": "lkubb",
-      "_lookup": {},
-      "_settings": {},
-      "_usersettings": {
-        "plugins": {
-          "absent": [
-            "Emmet"
-          ],
-          "wanted": [
-            "Jinja2",
-            "SaltStack-related syntax highlighting and snippets",
-            "SublimeLinter",
-            "SublimeLinter-contrib-salt-lint"
-          ]
-        }
+      "lookup": {},
+      "settings": {},
+      "usersettings": {
+        "someconf": "someval"
       },
       "_template": "https://github.com/lkubb/salt-tool-template-formula"
     }

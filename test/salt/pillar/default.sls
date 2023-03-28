@@ -34,6 +34,7 @@ tool_subl:
       conffile: 'Packages/User'
       xdg_dirname: 'sublime-text'
       xdg_conffile: ''
+    rootgroup: root
 
   tofs:
     # The files_switch key serves as a selector for alternative
