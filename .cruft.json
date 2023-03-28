@@ -44,7 +44,17 @@
       "lookup": {},
       "settings": {},
       "usersettings": {
-        "someconf": "someval"
+        "plugins": {
+          "absent": [
+            "Emmet"
+          ],
+          "wanted": [
+            "Jinja2",
+            "SaltStack-related syntax highlighting and snippets",
+            "SublimeLinter",
+            "SublimeLinter-contrib-salt-lint"
+          ]
+        }
       },
       "_template": "https://github.com/lkubb/salt-tool-template-formula"
     }
