@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as subl with context %}
 
 include:
@@ -11,8 +10,8 @@ include:
 {#- On MacOS, move the actual config to XDG_CONFIG_HOME and symlink it. On Linux,
     ST puts everything except cache into XDG_CONFIG_HOME #}
 
-{%- if 'Darwin' == grains['kernel'] %}
-{%-   for user in subl.users | rejectattr('xdg', 'sameas', false) %}
+{%- if grains.kernel == "Darwin" %}
+{%-   for user in subl.users | rejectattr("xdg", "sameas", false) %}
 
 {%-     set user_default_conf = user.home | path_join(subl.lookup.paths.confdir, subl.lookup.paths.conffile) %}
 {%-     set user_xdg_confdir = user.xdg.config | path_join(subl.lookup.paths.xdg_dirname) %}

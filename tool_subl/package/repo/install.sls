@@ -1,23 +1,22 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as subl with context %}
 
 
-{%- if grains['os'] in ['Debian', 'Ubuntu'] %}
+{%- if grains["os"] in ["Debian", "Ubuntu"] %}
 
 Ensure Sublime Text APT repository can be managed:
   pkg.installed:
     - pkgs:
       - python-apt                    # required by Salt
       - apt-transport-https           # needs to support https repositories
-{%-   if 'Ubuntu' == grains['os'] %}
+{%-   if "Ubuntu" == grains["os"] %}
       - python-software-properties    # to better support PPA repositories
 {%-   endif %}
 {%- endif %}
 
-{%- if subl.lookup.pkg.manager in ['yum', 'dnf', 'zypper'] and 'amd64' != grains['cpuarch'] %}
+{%- if subl.lookup.pkg.manager in ["yum", "dnf", "zypper"] and "amd64" != grains["cpuarch"] %}
 
 Sublime Text RPM repository does not exist for this CPU architecture:
   test.fail_without_changes:
@@ -31,7 +30,7 @@ Sublime Text {{ reponame }} repository is available:
 {%-     for conf, val in subl.lookup.pkg.repos[reponame].items() %}
     - {{ conf }}: {{ val }}
 {%-     endfor %}
-{%-     if subl.lookup.pkg.manager in ['dnf', 'yum', 'zypper'] %}
+{%-     if subl.lookup.pkg.manager in ["dnf", "yum", "zypper"] %}
     - enabled: 1
 {%-     endif %}
     - require_in:
@@ -43,7 +42,7 @@ Sublime Text {{ reponame }} repository is available:
 {%-     if reponame not in subl.lookup.pkg.enablerepo %}
 Sublime Text {{ reponame }} repository is disabled:
   pkgrepo.absent:
-{%-       for conf in ['name', 'ppa', 'ppa_auth', 'keyid', 'keyid_ppa', 'copr'] %}
+{%-       for conf in ["name", "ppa", "ppa_auth", "keyid", "keyid_ppa", "copr"] %}
 {%-         if conf in repodata %}
     - {{ conf }}: {{ repodata[conf] }}
 {%-         endif %}

@@ -1,7 +1,10 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{#-
+    Removes the configuration of the Sublime Text package.
+#}
+
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as subl with context %}
 
 
@@ -9,5 +12,5 @@
 
 Sublime Text config dir is absent for user '{{ user.name }}':
   file.absent:
-    - name: {{ user['_subl'].confdir }}
+    - name: {{ user["_subl"].confdir }}
 {%- endfor %}

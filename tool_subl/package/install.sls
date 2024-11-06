@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as subl with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
@@ -12,8 +11,8 @@ include:
 Sublime Text is installed:
   pkg.installed:
     - name: {{ subl.lookup.pkg.name }}
-{%- if 'Darwin' != grains['kernel'] %}
-    - version: {{ subl.get('version') or 'latest' }}
+{%- if "Darwin" != grains["kernel"] %}
+    - version: {{ subl.get("version") or "latest" }}
     {#- do not specify alternative return value to be able to unset default version #}
 {%- endif %}
 
@@ -21,10 +20,10 @@ Sublime Text is installed:
 
 Package Control is also installed for user '{{ user.name }}' (to make Sublime whole again):
   file.managed:
-    - name: {{ user._subl.datadir | path_join('Installed Packages', 'Package Control.sublime-package') }}
-    - source: {{ files_switch(['Package Control.sublime-package'],
-                              lookup='Package Control is also installed for user \'{{ user.name }}\' (to make Sublime whole again)',
-                              opt_prefixes=[user.name])
+    - name: {{ user._subl.datadir | path_join("Installed Packages", "Package Control.sublime-package") }}
+    - source: {{ files_switch(["Package Control.sublime-package"],
+                              lookup="Package Control is also installed for user '{{ user.name }}' (to make Sublime whole again)",
+                              opt_prefixes=[user.name]),
               }}
       - https://packagecontrol.io/Package%20Control.sublime-package
     # currently, does not change too often
