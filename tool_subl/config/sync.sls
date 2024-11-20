@@ -2,7 +2,7 @@
 
 {%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as subl with context %}
-{%- from tplroot ~ "/libtofs.jinja" import files_switch %}
+{%- from tplroot ~ "/libtofsstack.jinja" import files_switch %}
 
 
 {%- for user in subl.users | selectattr("dotconfig", "defined") | selectattr("dotconfig") %}
@@ -13,10 +13,14 @@ Sublime Text configuration is synced for user '{{ user.name }}':
     # conffile in this case is actually the Packages/User directory
     - name: {{ user["_subl"].conffile }}
     - source: {{ files_switch(
-                ["sublime-text"],
-                default_files_switch=["id", "os_family"],
-                override_root="dotconfig",
-                opt_prefixes=[user.name]) }}
+                    ["sublime-text"],
+                    lookup="Sublime Text configuration is synced for user '{}'".format(user.name),
+                    config=subl,
+                    path_prefix="dotconfig",
+                    files_dir="",
+                    custom_data={"users": [user.name]},
+                 )
+              }}
     - context:
         user: {{ user | json }}
     - template: jinja

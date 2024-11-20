@@ -1,5 +1,5 @@
-Welcome to salt-tool-subl-formula's documentation!
-==================================================
+Welcome to tool-subl-formula's documentation!
+=============================================
 
 .. toctree::
    :maxdepth: 2
