@@ -33,6 +33,8 @@ Package Control is also installed for user '{{ user.name }}' (to make Sublime wh
               }}
     # currently, does not change too often
     - source_hash: 817937144c34c84c88cd43b85318b2656f9c3fac02f8f72cbc18360b2c26d139 # was at the time of writing, might change
+    # It updates itself. The distributed version is not the latest release for some reason.
+    - replace: false
     - makedirs: true
     - mode: '0644'
     - user: {{ user.name }}
